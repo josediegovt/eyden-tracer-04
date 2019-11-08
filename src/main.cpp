@@ -70,6 +70,12 @@ Mat RenderFrame(void)
 	for (int y = 0; y < img.rows; y++) {
 		for (int x = 0; x < img.cols; x++) {
 			// --- PUT YOUR CODE HERE ---
+			sampleGenerator.get()->getSamples(nSamples, u, v, weight);
+			for(int i = 0; i < nSamples; i++) {
+				xu = x + u[i];
+				yv = u + v[i];
+				scene.m_pCamera->InitRay(xu, yv, ray); // initialize ray
+				img.at<Vec3f>(yv, xu) = scene.RayTrace(ray);
 		}
 	}
 #else

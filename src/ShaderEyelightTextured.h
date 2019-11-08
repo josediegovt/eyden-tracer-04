@@ -24,7 +24,14 @@ public:
 	virtual Vec3f Shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f(0, 0, 0); 
+		Vec2f uv_vec;
+		Vec3f tx;
+		Vec3f eyelight_color;
+		uv_vec = ray.hit->getUV(ray);
+		tx = texture.GetTexel(uv_vec[0], uv_vec[1]);
+		eyelight_color = CShaderEyelight::Shade(ray);
+		Vec3f res = tx.mul(eyelight_color);
+		return res;
 	}
 
 private:
